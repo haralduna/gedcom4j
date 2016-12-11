@@ -141,6 +141,9 @@ abstract class AbstractParser<T> {
             i = new Individual();
             i.setXref(xref);
             gedcomParser.getGedcom().getIndividuals().put(xref, i);
+            if (gedcomParser.getGedcom().getIndividuals().size() == 1) {
+                gedcomParser.getGedcom().getHeader().setFirstPersonInFile(xref);
+            }
         }
         return i;
     }

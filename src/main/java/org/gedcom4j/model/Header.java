@@ -109,6 +109,11 @@ public class Header extends AbstractNotesElement {
      */
     private StringWithCustomFacts time;
 
+    /**
+     * The  firstPersonInFile
+     */
+    private String firstPersonInFile;
+
     /** Default constructor */
     public Header() {
         // Default constructor does nothing
@@ -181,6 +186,11 @@ public class Header extends AbstractNotesElement {
             time = new StringWithCustomFacts(other.time);
         } else {
             time = null;
+        }
+        if (other.firstPersonInFile != null) {
+            firstPersonInFile = other.firstPersonInFile;
+        } else {
+            firstPersonInFile = null;
         }
     }
 
@@ -281,6 +291,14 @@ public class Header extends AbstractNotesElement {
         } else if (!time.equals(other.time)) {
             return false;
         }
+        if (firstPersonInFile == null) {
+            if (other.firstPersonInFile != null) {
+                return false;
+            }
+        } else if (!firstPersonInFile.equals(other.firstPersonInFile)) {
+            return false;
+        }
+
         return true;
     }
 
@@ -407,6 +425,15 @@ public class Header extends AbstractNotesElement {
     }
 
     /**
+     * Gets the firstPersonInFile.
+     *
+     * @return the firstPersonInFile
+     */
+    public String getFirstPersonInFile() {
+        return firstPersonInFile;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -425,6 +452,7 @@ public class Header extends AbstractNotesElement {
         result = prime * result + (submissionReference == null ? 0 : submissionReference.hashCode());
         result = prime * result + (submitterReference == null ? 0 : submitterReference.hashCode());
         result = prime * result + (time == null ? 0 : time.hashCode());
+        result = prime * result + (firstPersonInFile == null ? 0 : firstPersonInFile.hashCode());
 
         return result;
     }
@@ -600,6 +628,16 @@ public class Header extends AbstractNotesElement {
     }
 
     /**
+     * Sets the firstPersonInFile
+     *
+     * @param firstPersonInFile
+     *            the new firstPersonInFile
+     */
+    public void setFirstPersonInFile(String firstPersonInFile) {
+        this.firstPersonInFile = firstPersonInFile;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -674,6 +712,10 @@ public class Header extends AbstractNotesElement {
         if (getCustomFacts() != null) {
             builder.append("customFacts=");
             builder.append(getCustomFacts());
+        }
+        if (getFirstPersonInFile() != null) {
+            builder.append("firstPersonInFile=");
+            builder.append(getFirstPersonInFile());
         }
         builder.append("]");
         return builder.toString();
