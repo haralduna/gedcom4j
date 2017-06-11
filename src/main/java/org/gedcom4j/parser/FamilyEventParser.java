@@ -26,8 +26,6 @@
  */
 package org.gedcom4j.parser;
 
-import java.util.List;
-
 import org.gedcom4j.model.AbstractCitation;
 import org.gedcom4j.model.Address;
 import org.gedcom4j.model.FamilyEvent;
@@ -37,6 +35,8 @@ import org.gedcom4j.model.Place;
 import org.gedcom4j.model.StringTree;
 import org.gedcom4j.model.StringWithCustomFacts;
 import org.gedcom4j.model.enumerations.FamilyEventType;
+
+import java.util.List;
 
 /**
  * Parser for {@link FamilyEvent} records
@@ -131,9 +131,13 @@ class FamilyEventParser extends AbstractEventParser<FamilyEvent> {
                                 + "  Data loaded but cannot be re-written unless GEDCOM version changes.");
                     }
                 } else if (Tag.HUSBAND.equalsText(ch.getTag())) {
-                    loadInto.setHusbandAge(parseStringWithCustomFacts(ch.getChildren().get(0)));
+                    if (ch.getChildren() != null) {
+                        loadInto.setHusbandAge(parseStringWithCustomFacts(ch.getChildren().get(0)));
+                    }
                 } else if (Tag.WIFE.equalsText(ch.getTag())) {
-                    loadInto.setWifeAge(parseStringWithCustomFacts(ch.getChildren().get(0)));
+                    if (ch.getChildren() != null) {
+                        loadInto.setWifeAge(parseStringWithCustomFacts(ch.getChildren().get(0)));
+                    }
                 } else if (Tag.CONCATENATION.equalsText(ch.getTag())) {
                     if (loadInto.getDescription() == null) {
                         loadInto.setDescription(parseStringWithCustomFacts(ch));
