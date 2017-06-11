@@ -5,7 +5,7 @@
 
 	<groupId>org.gedcom4j</groupId>
 	<artifactId>gedcom4j</artifactId>
-	<version>kinsmap-1.21</version>
+	<version>kinsmap-1.30</version>
 
 	<!-- Derived from project name and README -->
 	<name>gedcom4j</name>
