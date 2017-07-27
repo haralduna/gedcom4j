@@ -26,10 +26,10 @@
  */
 package org.gedcom4j.parser;
 
-import java.util.Arrays;
-
 import org.gedcom4j.exception.GedcomParserException;
 import org.gedcom4j.model.StringTree;
+
+import java.util.Arrays;
 
 /**
  * Class for building {@link StringTree} objects for each root-level node in the input file. This class used to build a big
@@ -249,7 +249,7 @@ class StringTreeBuilder {
             if (Character.isDigit(c1)) {
                 if (' ' == c2) {
                     return true;
-                } else if (Character.isDigit(c2) && ' ' == c3) {
+                } else if (Character.isDigit(c2) && ' ' == c3 && line.length() > 3) {
                     return true;
                 } else {
                     throw new GedcomParserException("Line " + lineNum
