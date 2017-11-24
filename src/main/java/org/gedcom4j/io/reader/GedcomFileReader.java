@@ -26,17 +26,17 @@
  */
 package org.gedcom4j.io.reader;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import org.gedcom4j.exception.GedcomParserException;
 import org.gedcom4j.exception.ParserCancelledException;
 import org.gedcom4j.exception.UnsupportedGedcomCharsetException;
 import org.gedcom4j.io.event.FileProgressEvent;
 import org.gedcom4j.parser.GedcomParser;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * An encoding-agnostic class for reading the GEDCOM files and handling ASCII, ANSEL, and UNICODE coding as needed. It's basic job
@@ -176,12 +176,16 @@ public final class GedcomFileReader {
                         return new Utf8Reader(parser, byteStream);
                     } else if ("ASCII".equalsIgnoreCase(e)) {
                         return new AsciiReader(parser, byteStream);
-                    } else if ("ANSI".equalsIgnoreCase(e)) {
-                        /*
-                         * Technically, this is illegal, but UTF_8 is the most-likely-to-work scenario, so let's try it and be a bit
-                         * forgiving
-                         */
-                        return new Utf8Reader(parser, byteStream);
+                    }
+                    /* Adding support for legacy character codings,
+                     * according to https://www.tamurajones.net/GEDCOMCharacterEncodings.xhtml
+                     */
+//                    else if ("IBMPC".equalsIgnoreCase(e)) {
+//                        return new CodePageReader(parser, byteStream, "Cp437");
+//                    } else if ("MSDOS".equalsIgnoreCase(e)) {
+//                        return new CodePageReader(parser, byteStream, "Cp850");
+                    else if ("ANSI".equalsIgnoreCase(e)) {
+                        return new CodePageReader(parser, byteStream, "Cp1252");
                     } else {
                         throw new UnsupportedGedcomCharsetException("Specified charset " + e
                                 + " is not a supported charset encoding for GEDCOMs");
