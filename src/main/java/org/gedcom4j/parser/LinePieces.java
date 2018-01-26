@@ -139,6 +139,10 @@ class LinePieces {
     private void processTag() throws GedcomParserException {
         // Parse the tag
         StringBuilder t = new StringBuilder();
+        if (currCharIdx < chars.length && chars[currCharIdx] == ' ') {
+            // Fix MyHeritage bug
+            currCharIdx++;
+        }
         while (currCharIdx < chars.length && chars[currCharIdx] != ' ') {
             t.append(chars[currCharIdx++]);
         }
