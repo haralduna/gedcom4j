@@ -26,11 +26,11 @@
  */
 package org.gedcom4j.io.reader;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.gedcom4j.exception.GedcomParserException;
 import org.gedcom4j.parser.GedcomParser;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A reader that loads from an input stream and gives back a collection of strings representing the data therein. This
@@ -97,7 +97,7 @@ final class UnicodeLittleEndianReader extends AbstractEncodingSpecificReader {
             if (beginningOfFile && currChar1 == 0xFF && currChar2 == 0xFE) {
                 beginningOfFile = false;
                 lineBuffer.setLength(0);
-                break;
+                continue;
             }
 
             beginningOfFile = false;
